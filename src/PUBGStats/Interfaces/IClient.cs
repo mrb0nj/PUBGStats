@@ -1,4 +1,5 @@
 ﻿using PUBGStats.Models;
+using System.Collections.Generic;
 using System.Net.Http;
 
 namespace PUBGStats.Interfaces
@@ -7,6 +8,8 @@ namespace PUBGStats.Interfaces
     {
         HttpClient PrepareRequest(string resource);
         Status GetStatus();
+        IEnumerable<Match> GetMatches();
+        Match GetMatch(string id);
         string GetJson();
     }
 }

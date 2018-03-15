@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using PUBGStats.Models;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace PUBGStats
 {
@@ -28,6 +29,42 @@ namespace PUBGStats
         public virtual string GetJson()
         {
             throw new NotImplementedException();
+        }
+
+        public Match GetMatch(string id)
+        {
+            try
+            {
+                var json = GetJson();
+                if (string.IsNullOrWhiteSpace(json))
+                    return null;
+
+                var match = JsonConvert.DeserializeObject<Match>(json);
+                return match;
+            }
+            catch (Exception)
+            {
+                //TODO: Surface this error somewhere
+                return null;
+            }
+        }
+
+        public IEnumerable<Match> GetMatches()
+        {
+            try
+            {
+                var json = GetJson();
+                if (string.IsNullOrWhiteSpace(json))
+                    return null;
+
+                var matches = JsonConvert.DeserializeObject<List<Match>>(json);
+                return matches;
+            }
+            catch (Exception)
+            {
+                //TODO: Surface this error somewhere
+                return null;
+            }
         }
 
         public Status GetStatus()
